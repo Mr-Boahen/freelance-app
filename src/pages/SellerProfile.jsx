@@ -46,7 +46,7 @@ function SellerProfile() {
       toast.error(error.message);
     },
   });
-  const { mutate: mutatePayment, isPending:pendingPayment } = useMutation({
+  const { mutate: mutatePayment, isPending: pendingPayment } = useMutation({
     mutationFn: ({ provider, tel }) => {
       return payPartner({ provider, tel }, _id);
     },
@@ -68,98 +68,98 @@ function SellerProfile() {
   }, []);
 
   return (
-    <div className="relative flex w-[60%] mx-auto gap-28">
-      {pendingSeller?(
+    <div className="relative flex w-[65%] px-10 border-2 rounded-lg mx-auto gap-10">
+      {pendingSeller ? (
         <div>
-         <div className="flex gap-2 mt-32">
-         <Skeleton
-            variant="circular"
-            height={80}
-            width={80}
-            animation="wave"
-            className=""
-          />
+          <div className="flex gap-2 mt-32">
+            <Skeleton
+              variant="circular"
+              height={80}
+              width={80}
+              animation="wave"
+              className=""
+            />
+            <Skeleton
+              variant="rectangular"
+              height={80}
+              width={220}
+              animation="wave"
+              className="rounded-lg"
+            />
+          </div>
+          <div className="flex gap-2 mt-5">
+            <Skeleton
+              variant="rectangular"
+              height={80}
+              width={150}
+              animation="wave"
+              className="rounded-lg"
+            />
+            <Skeleton
+              variant="rectangular"
+              height={80}
+              width={150}
+              animation="wave"
+              className="rounded-lg"
+            />
+          </div>
           <Skeleton
-            variant="rectangular"
-            height={80}
-            width={220}
-            animation="wave"
-            className="rounded-lg"
-          />
-         </div>
-         <div className="flex gap-2 mt-5">
-         <Skeleton
-            variant="rectangular"
-            height={80}
-            width={150}
-            animation="wave"
-            className="rounded-lg"
-          />
-         <Skeleton
-            variant="rectangular"
-            height={80}
-            width={150}
-            animation="wave"
-            className="rounded-lg"
-          />
-          
-         </div>
-         <Skeleton
             variant="rectangular"
             height={200}
             width={310}
             animation="wave"
             className="rounded-lg mt-5"
           />
-
         </div>
-      ):(<div className="w-[50%] ">
-        <h1 className="text-3xl font-semibold mt-20 mb-10">About Seller</h1>
-        <div className="flex w-[80%] pl-10 py-8 border  items-center gap-3  mb-10 ">
-          <Avatar sx={{ width: "70px", height: "70px" }}></Avatar>
-          <div className="font-splinesans text-lg ">
-            <h1 className="font-splinesans text-xl">
-              {sellerState?.sellerInfo?.name}
-            </h1>
-            <div className="font-splinesans text-gray-500 flex gap-1">
-              {sellerState?.sellerInfo?.skills.map((skill, index) => {
-                return (
-                  <h1 key={index}>
-                    {skill} {","}
-                  </h1>
-                );
-              })}
-            </div>
-            <div className="flex justify-between gap-3">
-              <div className="flex items-center">
-                <StarRateRoundedIcon fontSize="small" />
-                <h1>6</h1>
+      ) : (
+        <div className="w-[50%]  ">
+          <h1 className="text-2xl font-splinesans mt-10 mb-10">About Seller</h1>
+          <div className="flex w-[80%] pl-10 py-8 border-2 rounded-lg items-center gap-3  mb-10 ">
+            <Avatar sx={{ width: "70px", height: "70px" }}></Avatar>
+            <div className="font-splinesans text-lg ">
+              <h1 className="font-splinesans text-xl">
+                {sellerState?.sellerInfo?.name}
+              </h1>
+              <div className="font-splinesans text-gray-500 flex gap-1">
+                {sellerState?.sellerInfo?.skills.map((skill, index) => {
+                  return (
+                    <h1 key={index}>
+                      {skill} <span className="text-green-500">|</span>
+                    </h1>
+                  );
+                })}
+              </div>
+              <div className="flex justify-between gap-3">
+                <div className="flex items-center">
+                  <StarRateRoundedIcon fontSize="small" />
+                  <h1>6</h1>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div className=" border-2 w-[80%] p-5">
-          <div className="flex gap-[30%] border-b py-5">
-            <div>
-              <h1 className="font-signika text-xl">From</h1>
-              <h1 className="text-lg font-[500] text-gray-500">Uzbekistan</h1>
+          <div className=" border-2 w-[80%] p-5 rounded-lg">
+            <div className="flex gap-[30%] border-b py-5">
+              <div>
+                <h1 className="font-signika text-xl">From</h1>
+                <h1 className="text-lg font-[500] text-gray-500">Uzbekistan</h1>
+              </div>
+              <div>
+                <h1 className="font-signika text-xl">Member Since</h1>
+                <h1 className="text-lg font-[500] text-gray-500">Feb 2014</h1>
+              </div>
             </div>
-            <div>
-              <h1 className="font-signika text-xl">Member Since</h1>
-              <h1 className="text-lg font-[500] text-gray-500">Feb 2014</h1>
+
+            <div className="mt-5 font-splinesans font-[500] text-lg">
+              {sellerState?.sellerInfo?.description}
             </div>
           </div>
 
-          <div className="mt-5 font-splinesans font-[500] text-lg">
-            {sellerState?.sellerInfo?.description}
+          <div>
+            <h1 className="text-4xl">Portfolio</h1>
           </div>
         </div>
-
-        <div>
-          <h1 className="text-4xl">Portfolio</h1>
-        </div>
-      </div>)}
+      )}
       {pendingSeller ? (
         <div className="mt-[150px] ">
           <Skeleton
@@ -192,11 +192,11 @@ function SellerProfile() {
           />
         </div>
       ) : (
-        <div className=" w-[450px]  border-2 px-5 py-2 h-fit mt-[150px] shadow-md  ">
-          <h1 className="text-[100px] font-bold -mt-5 text-green-400">
+        <div className=" w-[450px]  border-2 rounded-lg px-5 py-2 h-fit mt-[110px] shadow-md  ">
+          <h1 className="text-[100px] font-bold -mt-5 bg-transparent text-green-400">
             {" "}
-            <span className="text-xl"> GH₵ </span>
-            {sellerState?.sellerInfo?.basePrice}
+            <span className="text-3xl font-jetbrains"> GHC </span>
+            <span className="font-jetbrains">{sellerState?.sellerInfo?.basePrice}</span>
           </h1>
           <div>
             <h1 className="font-semibold text-lg">
@@ -233,7 +233,7 @@ function SellerProfile() {
               onClick={() => setShowPayment(!showPayment)}
               className="flex items-center justify-center my-5 gap-2 group rounded-[4px] bg-black h-10  text-white w-[100%] mx-auto"
             >
-              <h1 className="text-xl group-active:mr-2 font-signika transition-all duration-100 ease-in-out">
+              <h1 className="text-xl bg-transparent group-active:mr-2 font-signika transition-all duration-100 ease-in-out">
                 Hire
               </h1>
               <ArrowDownwardRoundedIcon sx={{ color: "#05ed5e" }} />
@@ -268,7 +268,7 @@ function SellerProfile() {
                   />
 
                   <button className=" group flex items-center justify-center gap-2 bg-[#07b042] h-10 rounded-sm w-[60%] my-2">
-                    <h1 className="text-white text-lg font-signika group-active:mr-2 transition-all duration-100 ease-in-out">
+                    <h1 className="text-white bg-transparent text-lg font-signika group-active:mr-2 transition-all duration-100 ease-in-out">
                       Pay
                     </h1>
                     <AccountBalanceWalletRoundedIcon sx={{ color: "white" }} />

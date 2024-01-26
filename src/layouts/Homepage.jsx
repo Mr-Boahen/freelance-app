@@ -12,7 +12,7 @@ function Homepage() {
 
  
   return (
-    <div className='relative overflow-x-hidden'>
+    <div className='relative overflow-hidden '>
      
       {showState.showLogin && !localStorage.getItem("account")?<LoginPage/>:""}
       {showState.showSignin && <RegisterPage/>}

@@ -3,8 +3,11 @@ import StarRateRoundedIcon from "@mui/icons-material/StarRateRounded";
 import FavoriteBorderRoundedIcon from "@mui/icons-material/FavoriteBorderRounded";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { color } from "framer-motion";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { showActions } from "../../store/reducers/userReducers";
+
+
 
 function GigCard({
   thumbnail,
@@ -15,13 +18,16 @@ function GigCard({
   rating,
 }) {
   
+  
   const shortDescription = description.slice(0, 80) + "...";
   const sellerState = useSelector((state) => state.seller);
   const userState = useSelector((state) => state.user);
   const navigate = useNavigate();
+  const dispatch=useDispatch();
   return (
+    //  userState.userInfo?navigate(`/profile/${userState.userInfo._id}`}: dispatch(showActions.setShowLogin(true)
     <div
-      onClick={() => navigate(`/profile/${userState.userInfo._id}`)}
+      onClick={() =>userState.userInfo? navigate(`/profile/${userState.userInfo._id}`):dispatch(showActions.setShowLogin(true)) }
       className="bg-white  mt-12 hover:bg-gray-100/70 transition-all duration-100 ease-in-out"
     >
       <div className="relative active:scale-90 shadow-xl  transition-all duration-150 ease-in border-2 w-[250px] h-[360px] rounded-lg p-2">

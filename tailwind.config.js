@@ -6,7 +6,8 @@ module.exports = {
       fontFamily:{
         splinesans:["Spline Sans"],
         signika:["signika"],
-        narrow:["Archivo Narrow"]
+        narrow:["Archivo Narrow"],
+        jetbrains:["JetBrains Mono"]
       },
     },
   },

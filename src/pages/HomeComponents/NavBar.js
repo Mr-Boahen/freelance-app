@@ -121,7 +121,7 @@ function NavBar() {
 
           <form
             onSubmit={handleSearchSubmit}
-            className="w-[60%] max-w-[50%] min-w-[50%]  flex items-center rounded-lg "
+            className="w-[60%] max-w-[50%] lg:-mr-10   flex items-center rounded-lg "
           >
             <input
               ref={inputRef}
@@ -226,7 +226,7 @@ function NavBar() {
             </button>
           </form>
           <div className="hidden lg:block">
-            <div className="flex items-center gap-5 ">
+            <div className="flex items-center gap-4 ">
               <div className="flex font-splinesans items-center justify-center cursor-pointer active:scale-90 rounded-lg   transition-all duration-150 ease-in-out">
                 <NotificationsNoneRoundedIcon
                   sx={{ fontSize: "25px", color: "black", cursor: "pointer" }}
@@ -281,7 +281,7 @@ function NavBar() {
                       userState.userInfo?navigate("/profile"): dispatch(showActions.setShowLogin(true))
                      }}
                       to={userState.userInfo?"/profile":""}
-                      className="w-24 font-splinesans bg-transparent  p-1"
+                      className="w-24 font-splinesans cursor-pointer bg-transparent  p-1"
                     >
                       Profile
                     </div>

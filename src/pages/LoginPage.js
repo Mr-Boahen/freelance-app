@@ -7,15 +7,13 @@ import { showActions, userActions } from "../store/reducers/userReducers";
 import toast, { Toaster } from "react-hot-toast";
 import { login } from "../services/users";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import { SpinnerCircular } from "spinners-react";
 
 function LoginPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userState = useSelector((state) => state.user);
-  const showState=useSelector((state)=>state.showLoginAndSignin)
-
-  
-  
+  const showState = useSelector((state) => state.showLoginAndSignin);
 
   useEffect(() => {
     if (userState?.userInfo) {
@@ -23,13 +21,13 @@ function LoginPage() {
     }
   }, [userState?.userInfo]);
 
-  const { mutate, isLoading } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: ({ email, password }) => {
       return login({ email, password });
     },
     onSuccess: (data) => {
       dispatch(userActions?.setUserInfo(data));
-      dispatch(showActions?.setShowLogin(false))
+      dispatch(showActions?.setShowLogin(false));
       localStorage.setItem("account", JSON.stringify(data));
     },
     onError: (error) => {
@@ -60,10 +58,10 @@ function LoginPage() {
         <form
           onSubmit={handleSubmit(submitHandler)}
           action=""
-          className=" absolute z-[40] left-[25%] right-[25%] top-[25%] bg-transparent   flex  flex-col  pl-20 mx-10 py-10 gap-5 items-center my-auto   rounded-md "
+          className=" absolute z-[40] left-[15%] sm:left-[25%] right-[25%] top-[20%] bg-transparent   flex  flex-col  pl-20 mx-10 py-10 gap-5 items-center my-auto   rounded-md "
         >
-          <div className="relative bg-white border border-black h-[470px] w-[450px] backdrop-blur-md  rounded-lg flex flex-col  pl-14 py-10 shadow-[-25px_15px_0px_8px_rgba(0,0,0,1)]">
-            <div onClick={()=>dispatch(showActions.setShowLogin(false))}>
+          <div className="relative bg-white border border-black h-[470px] w-[300px] sm:w-[450px] backdrop-blur-md  rounded-lg flex flex-col pl-10 sm:pl-14 py-10 shadow-[-25px_15px_0px_8px_rgba(0,0,0,1)]">
+            <div onClick={() => dispatch(showActions.setShowLogin(false))}>
               {" "}
               <CloseRoundedIcon
                 sx={{ fontSize: "35px", color: "black" }}
@@ -71,7 +69,7 @@ function LoginPage() {
               />
             </div>
             <label>
-              <h1 className="text-[50px] font-splinesans text-gray-600 ">
+              <h1 className="text-[35px] sm:text-[50px] font-splinesans text-gray-600 ">
                 Sign-in to your{" "}
                 <span className="text-[#2a7e7a] block">Account</span>
               </h1>
@@ -95,7 +93,7 @@ function LoginPage() {
                   errors.email
                     ? "border-2 mt-5 rounded-lg  border-red-500 outline-none"
                     : "border-2 mt-5 rounded-lg  outline-none"
-                } h-5 w-[80%] text-xl bg-white/50 backdrop-blur-md font-splinesans`}
+                } h-5 w-[60%] sm:w-[80%] text-xl bg-white/50 backdrop-blur-md font-splinesans`}
                 type="email"
               />
               {errors.email?.message && (
@@ -122,7 +120,7 @@ function LoginPage() {
                   errors.password
                     ? "border-2 mt-5 rounded-lg  border-red-500 outline-none "
                     : "border-2 mt-5 rounded-lg  outline-none"
-                } h-5 w-[80%] text-xl text-black  bg-white/50 backdrop-blur-md font-splinesans`}
+                } h-5 w-[60%] sm:w-[80%] text-xl text-black  bg-white/50 backdrop-blur-md font-splinesans`}
                 type="password"
               />
               {errors.password?.message && (
@@ -134,23 +132,33 @@ function LoginPage() {
             <div className="mr-16 text-lg text-black/50 font-splinesans mt-8 ml-2">
               Don't have an account?
               <span
-                onClick={()=>{dispatch(showActions.setShowSignin(true))
-                  dispatch(showActions.setShowLogin(false))}} 
+                onClick={() => {
+                  dispatch(showActions.setShowSignin(true));
+                  dispatch(showActions.setShowLogin(false));
+                }}
                 className=" relative cursor-pointer ml-1 hover:underline transition-all duration-150 ease-in-out  text-[#2f948d] text-large"
-                
               >
                 Register
               </span>{" "}
             </div>
+          
 
             <button
               disabled={!isValid}
-              className="disabled:cursor-not-allowed disabled:hover:text-white border border-black bg-white text-black text-lg font-splinesans w-[100px] h-10 rounded-lg  mr-[75px] ml-28 mt-2 hover:bg-black hover:text-white   active:scale-105 transition-all duration-200 ease-in-out shadow-md  "
+              className="disabled:cursor-not-allowed flex items-center justify-center gap-2 px-3 disabled:hover:text-white border border-black bg-white text-black text-lg font-splinesans w-fit h-10 rounded-lg  mr-[75px] ml-2   mt-2 focus:bg-black focus:text-white   active:scale-105 transition-all duration-200 ease-in-out shadow-md  "
             >
-              Login
+              <h1 className="bg-transparent">Login</h1>
+              {isPending ? (
+                <span className="bg-transparent">
+                  {" "}
+                  <SpinnerCircular secondaryColor="white" style={{backgroundColor:"transparent"}} size={30} color="#11d431" />
+                </span>
+              ) : (
+                ""
+              )}
             </button>
           </div>
-        </form> 
+        </form>
       </div>
     </div>
   );

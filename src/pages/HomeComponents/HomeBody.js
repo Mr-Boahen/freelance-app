@@ -3,6 +3,7 @@ import GigCard from "./GigCard";
 import { useQuery } from "@tanstack/react-query";
 import { getAllPartners, getSeller } from "../../services/users";
 import { Skeleton } from "@mui/material";
+import { SpinnerCircular } from "spinners-react";
 
 function HomeBody() {
   const { data: allPartners, isLoading } = useQuery({
@@ -244,7 +245,7 @@ function HomeBody() {
           </div>
         </>
       ) : (
-        <div className="bg-transparent mx-auto flex flex-wrap gap-5  items-center ">
+        <div className="bg-transparent w-[80%] mx-auto pl-5 md:pl-0  flex flex-wrap gap-5  items-center ">
           {allPartners?.data?.map((partner) => {
             return (
               <GigCard
@@ -259,6 +260,7 @@ function HomeBody() {
         </div>
       )}
     </div>
+
 
     <div className="w-[75%] h-[27vh] font-signika flex justify-center items-end mx-auto ">
       <div className="flex flex-col items-center">

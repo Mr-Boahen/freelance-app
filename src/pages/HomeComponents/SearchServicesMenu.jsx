@@ -84,7 +84,7 @@ function SearchServicesMenu() {
       {!window.location.href.includes("profile") ||
         (!window.location.href.includes("search") && (
           <div>
-            <h1 className="w-[75%] overflow-x-hidden py-2 my-10 mx-auto flex items-center gap-5 text-4xl text-[#222325] font-splinesans">
+            <h1 className="w-[75%] md:ml-[330px] overflow-x-hidden py-2 my-10 mx-auto flex items-center gap-5 text-4xl text-[#222325] font-splinesans">
               Wossop, Mr_Kaakyire
             </h1>
           </div>

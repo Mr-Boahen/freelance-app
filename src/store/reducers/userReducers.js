@@ -45,7 +45,7 @@ const userSlice = createSlice({
     },
     logOut(state) {
       state.userInfo = null;
-      window.location.pathname = "/";
+      window.location.pathname = "/home";
     },
   },
 });
