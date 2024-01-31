@@ -6,7 +6,11 @@ import PersonIcon from "@mui/icons-material/Person";
 import CameraAltOutlinedIcon from "@mui/icons-material/CameraAltOutlined";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
-import { updateProfile, updateProfilePicture } from "../services/users";
+import {
+  updateProfile,
+  updateProfilePicture,
+  deleteSkill,
+} from "../services/users";
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../store/reducers/userReducers";
 import toast from "react-hot-toast";
@@ -141,9 +145,9 @@ function ProfilePage() {
   };
 
   return (
-    <div className="mt-20 h-[40%] md:h-[100%] w-[65%] mx-auto md:grid md:grid-cols-2 grid-rows-2 md:gap-x-24 md:gap-y-4 overflow-hidden">
-      <div className="h-[420px] w-[100%] rounded-lg  border-2   col-span-1 shadow-lg mb-10 md:mb-0">
-        <div className="h-[100%]  flex flex-col items-center py-10">
+    <div className="mt-10 h-[40%] md:h-[100%] w-[65%] mx-auto md:grid md:grid-cols-2 grid-rows-2 md:gap-x-10  overflow-hidden">
+      <div className="h-[420px] xl:w-[80%] xl:ml-28 rounded-lg  border-2   col-span-1 shadow-lg mb-10 md:mb-0">
+        <div className="h-[80%]  flex flex-col items-center py-10">
           <div className=" flex flex-col items-center gap-3">
             {userState?.userInfo?.avatar ? (
               <form
@@ -192,7 +196,7 @@ function ProfilePage() {
                   id="imageInput"
                   className="hidden  z-20 h-[150px] w-[150px] rounded-full bg-black "
                 />
-                <Avatar sx={{ width: "150px", height: "150px" }}>
+                <Avatar sx={{ width: "100px", height: "100px" }}>
                   <div className="group bg-green-500/0 hover:bg-black/50 absolute z-10 rounded-full h-[150px] w-[150px] grid place-items-center transition-all duration-150 ease-in-out ">
                     <CameraAltOutlinedIcon
                       className="opacity-0 group-hover:opacity-100 bg-transparent "
@@ -275,15 +279,15 @@ function ProfilePage() {
           <div className=" w-[100%] py-10 px-5">
             <div className="flex justify-around items-center w-[100%]">
               <div className="flex items-center ">
-                <h1 className="font-signika text-xl mt-1">From</h1>
+                <h1 className="font-signika text-lg mt-1">From</h1>
               </div>
-              <div className="text-lg font-[500] text-gray-500">KNUST</div>
+              <div className="text-md font-[500] text-gray-500">KNUST</div>
             </div>
             <div className="flex justify-around items-center mt-2 h-[15px] w-[100%] pl-8">
-              <div className="flex items-center  ml-1">
-                <h1 className="font-signika text-xl mt-1">Member since</h1>
+              <div className="flex items-center  ">
+                <h1 className="font-signika text-lg mt-1">Member since</h1>
               </div>
-              <div className="text-lg font-[500] text-gray-500">March 1957</div>
+              <div className="text-md font-[500] text-gray-500">March 1957</div>
             </div>
           </div>
         </div>
@@ -291,7 +295,7 @@ function ProfilePage() {
 
       {/* CODE FOR THE PROFESSIONAL PORFOLIO SECTION */}
 
-      <div className="flex flex-col gap-5 md:gap-24  w-[100%] h-[88%] shadow-lg p-5 py-8 md:p-10 md:py-16 row-span-2 rounded-lg  border-2 ">
+      <div className="flex flex-col gap-5 md:gap-24  xl:w-[80%] h-[88%] shadow-lg p-5 py-8 md:p-10 md:py-16 row-span-2 rounded-lg  border-2 ">
         <div className="border-b h-[25%]">
           <div className="flex justify-between mb-2">
             <label className="font-[500] font-signika text-lg">
@@ -301,7 +305,7 @@ function ProfilePage() {
               onClick={() => {
                 setShowEdit({ ...showEdit, description: true });
               }}
-              className="description font-[500] text-lg text-blue-800 cursor-pointer"
+              className="description font-[500] text-lg text-green-600 cursor-pointer"
             >
               Edit
             </h1>
@@ -363,7 +367,7 @@ function ProfilePage() {
               onClick={() => {
                 setShowEdit({ ...showEdit, skills: true });
               }}
-              className="skills font-[500]  text-md text-blue-800 cursor-pointer"
+              className="skills font-[500]  text-md text-green-600 cursor-pointer"
             >
               Add New
             </h1>
@@ -407,9 +411,15 @@ function ProfilePage() {
                     <h1 className="mt-1 bg-transparent text-green-500">
                       {skill}
                     </h1>
-                    <CloseRoundedIcon
-                      sx={{ fontSize: "15px", marginTop: "2px" }}
-                    />
+                    <div className="bg-transparent"
+                      onClick={async() => {
+                        console.log(await deleteSkill(index));
+                      }}
+                    >
+                      <CloseRoundedIcon
+                        sx={{ fontSize: "15px", marginTop: "2px" }}
+                      />
+                    </div>
                   </div>
                 </div>
               ))}
@@ -426,7 +436,7 @@ function ProfilePage() {
               onClick={() => {
                 setShowEdit({ ...showEdit, certification: true });
               }}
-              className="certification font-[500]  text-md text-blue-800 cursor-pointer"
+              className="certification font-[500]  text-md text-green-600 cursor-pointer"
             >
               Add New
             </h1>
@@ -483,7 +493,7 @@ function ProfilePage() {
         </div>
       </div>
 
-      <div className=" xl:flex xl:flex-col xl:justify-center xl:items-center h-[250px] mt-14 border bg-gradient-to-br from-green-600 to-black rounded-lg px-10 py-8 text-white">
+      <div className=" xl:flex xl:flex-col xl:justify-center xl:items-center h-[250px] xl:w-[80%] xl:ml-28 mt-14 border bg-gradient-to-br from-green-600 to-black rounded-lg px-10 py-8 text-white">
         <h1 className="text-[35px]  font-signika bg-transparent">
           {" "}
           Create your own{" "}
@@ -528,13 +538,9 @@ function ProfilePage() {
               {" "}
               <div>
                 <div className="">
-                  <h1 className="font-splinesans text-gray-500 text-sm">
+                  <h1 className="font-splinesans text-gray-500 text-sm mb-3">
                     To help build credible and authentic connections with
                     customers, they’ll now see your Gig description.
-                  </h1>
-                  <h1 className="mb-6 font-splinesans text-gray-400 text-sm">
-                    We suggest using your first name and first initial of your
-                    last name.
                   </h1>
 
                   <textarea

@@ -254,6 +254,7 @@ function HomeBody() {
                 avatar={partner.avatar}
                 description={partner.description}
                 name={partner.name}
+                startingPrice={partner.basePrice}
               />
             );
           })}

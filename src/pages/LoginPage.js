@@ -145,7 +145,7 @@ function LoginPage() {
 
             <button
               disabled={!isValid}
-              className="disabled:cursor-not-allowed flex items-center justify-center gap-2 px-3 disabled:hover:text-white border border-black bg-white text-black text-lg font-splinesans w-fit h-10 rounded-lg  mr-[75px] ml-2   mt-2 focus:bg-black focus:text-white   active:scale-105 transition-all duration-200 ease-in-out shadow-md  "
+              className="disabled:cursor-not-allowed flex items-center justify-center gap-2 px-3  border border-black bg-white text-black text-lg font-splinesans w-fit h-10 rounded-lg  mr-[75px] ml-2   mt-2 focus:bg-black focus:text-white   active:scale-105 transition-all duration-200 ease-in-out shadow-md  "
             >
               <h1 className="bg-transparent">Login</h1>
               {isPending ? (
@@ -160,6 +160,7 @@ function LoginPage() {
           </div>
         </form>
       </div>
+     
     </div>
   );
 }

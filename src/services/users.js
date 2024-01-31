@@ -158,6 +158,21 @@ const payPartner = async ({ provider, tel }, _id) => {
   }
 };
 
+const deleteSkill=async(arrayIndex)=>{
+  try {
+    const token = JSON.parse(localStorage.getItem("account")).token;
+    const message=await axios.post("http://localhost:8000/api/users/deleteSkill",{arrayIndex}, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+     return message
+  } catch (error) {
+    throw error;
+    
+  }
+}
+
 export {
   getAllPartners,
   getSeller,
@@ -167,4 +182,5 @@ export {
   login,
   searchPartners,
   payPartner,
+  deleteSkill
 };

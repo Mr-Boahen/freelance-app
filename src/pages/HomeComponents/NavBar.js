@@ -102,32 +102,27 @@ function NavBar() {
 
   return (
     <div className="relative  z-50  ">
-      <div className=" h-fit md:h-[84px]   border-b-2 max-sm:bg-red-500 sm:bg-green-500 md:bg-blue-400 lg:bg-purple-500 xl:bg-amber-700  2xl:bg-yellow-500">
-        <NavLink to="/home">
-          <div>
-            <h1 className="text-2xl text-green-400 text-center w-[30%] mx-auto my-5 block sm:hidden active:scale-x-[0.98] font-splinesans border-2 border-black p-1 rounded-md shadow-[-8px_6px_0px_-2px_rgba(0,0,0,1)]">
-              Shadow
-            </h1>
-          </div>
-        </NavLink>
-        <div className="md:w-[90%] lg:w-[75%] m-5 pr-2 gap-3  h-full w-[70%] md:gap-5 lg:gap-10 mx-auto flex items-center justify-between ">
+      <div className=" h-fit md:h-[84px]   border-b-2 ">
+       
+        <div className=" m-5 pr-2   h-full w-[60%]   mx-auto  flex items-center justify-center gap-20 md:gap-28 max-sm:bg-red-500 sm:bg-green-500 md:bg-blue-400 lg:bg-purple-500 xl:bg-amber-700  2xl:bg-yellow-500">
           <NavLink to="/home">
             <div>
-              <h1 className="text-3xl font-splinesans text-green-600 hidden sm:block active:scale-x-[0.98]  border-2 border-black p-1 rounded-md shadow-[-8px_6px_0px_-2px_rgba(0,0,0,1)]">
-                Shadow
+              <h1 className=" text-3xl px-3 font-splinesans text-green-600 active:scale-x-[0.98]  border-2 border-black p-1 rounded-md shadow-[-8px_6px_0px_-2px_rgba(0,0,0,1)]">
+                S
               </h1>
             </div>
           </NavLink>
 
           <form
             onSubmit={handleSearchSubmit}
-            className="w-[60%] max-w-[50%] lg:-mr-10   flex items-center rounded-lg "
+            className="relative w-fit flex   rounded-lg "
           >
             <input
               ref={inputRef}
               value={searchInput}
               onChange={setRecentSearch}
-              className=" searchbar  peer pl-5   h-[42px]  text-gray-600 font-splinesans border border-black w-[100%] rounded-lg  "
+              placeholder="Search our partners"
+              className=" searchbar  peer pl-5 outline-none  h-[42px]  text-gray-600 font-splinesans border-2 border-gray-300 min-w-[200px] sm:min-w-[350px] rounded-lg  "
               type="text"
             />
             <AnimatePresence>
@@ -136,24 +131,24 @@ function NavBar() {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 1 }}
-                className="searchModal hidden bg-white z-40  absolute px-7 py-5  border w-[38%] top-[75px] rounded  mx-auto  h-[300px]"
+                className="searchModal hidden bg-white z-40  absolute px-3 sm:px-7 py-5  border w-[100%] top-[75px] rounded  mx-auto  h-fit"
               >
-                <div className="flex flex-col gap-[50px]">
+                <div className="flex flex-col gap-[50px] ">
                   <div>
                     <div className="flex justify-between">
                       <div className="flex gap-3 items-center">
                         <AccessTimeOutlined
                           sx={{ fontSize: "18px", color: "gray" }}
                         />
-                        <h1 className=" text-[13px] font-[800] font-splinesans text-gray-600 ">
-                          RECENT SEARCHES
+                        <h1 className=" text-[15px] font-[800] font-splinesans text-gray-600 ">
+                          Searches
                         </h1>
                       </div>
 
                       <div className="group hover:text-gray-700 text-gray-500 flex items-center gap-1 cursor-pointer transition-all duration-150 ease-in-out">
                         <p
                           onClick={removeRecent}
-                          className="group-hover:text-gray-700 font-[700] font-splinesans text-gray-500 transition-all duration-150 ease-in-out"
+                          className="group-hover:text-gray-700 text-sm font-[700] font-splinesans text-gray-500 transition-all duration-150 ease-in-out"
                         >
                           Clear
                         </p>
@@ -185,12 +180,12 @@ function NavBar() {
                   <div>
                     <div className="flex gap-2 items-center">
                       <TrendingUpRounded sx={{ color: "gray" }} />
-                      <h2 className=" text-[13px] font-[800] font-splinesans text-gray-600 ">
-                        POPULAR RIGHT NOW
+                      <h2 className=" text-[14px] font-[800] font-splinesans text-gray-600 ">
+                        Popular right now
                       </h2>
                     </div>
                     <div>
-                      <div className="cursor-pointer hover:text-[#4d4c4c] hover:bg-[#e0e0e0] ml-10 mt-2 text-[17px] text-[#6b6b6b] font-[500] rounded-xl text-center bg-[#e7e7e7] h-7 w-[130px] transition-all duration-150 ease-in-out">
+                      <div className="cursor-pointer hover:text-[#4d4c4c] hover:bg-[#e0e0e0] px-2 sm:px-0 ml-6 sm:ml-10 mt-2 text-[15px] text-[#6b6b6b] font-[500] rounded-xl text-center bg-[#e7e7e7] h-7 w-fit sm:w-[130px] transition-all duration-150 ease-in-out">
                         video editing
                       </div>
                     </div>
@@ -211,33 +206,36 @@ function NavBar() {
                 ""
               )}
             </AnimatePresence>
-            <button
-              id="submitInput"
-              className=" bg-[#222325] rounded-r w-[42px] -ml-5"
-            >
-              <SearchOutlined
-                style={{
-                  color: "white",
-                  backgroundColor: "#222325",
-                  height: "42px",
-                  marginLeft: "8px",
-                }}
-              />
-            </button>
+            <div className="relative">
+              {" "}
+              <button
+                id="submitInput"
+                className=" absolute top-[2px] right-2 active:scale-105 rounded-r w-[42px] -ml-5"
+              >
+                <SearchOutlined
+                  style={{
+                    color: "green",
+
+                    height: "42px",
+                    marginLeft: "8px",
+                  }}
+                />
+              </button>
+            </div>
           </form>
           <div className="hidden lg:block">
             <div className="flex items-center gap-4 ">
-              <div className="flex font-splinesans items-center justify-center cursor-pointer active:scale-90 rounded-lg   transition-all duration-150 ease-in-out">
+              <div className="flex font-splinesans items-center justify-center cursor-pointer active:scale-90    transition-all duration-150 ease-in-out">
                 <NotificationsNoneRoundedIcon
-                  sx={{ fontSize: "25px", color: "black", cursor: "pointer" }}
+                  sx={{ fontSize: "20px", color: "black", cursor: "pointer" }}
                 />
-                <h1 className="mt-1">Notifications</h1>
+                <h1 className="mt-1 text-[15px]">Notifications</h1>
               </div>
               <div className="flex font-splinesans items-center justify-center cursor-pointer active:scale-90 rounded-lg   transition-all duration-150 ease-in-out">
                 <FavoriteBorderRoundedIcon
-                  sx={{ fontSize: "25px", color: "black", cursor: "pointer" }}
+                  sx={{ fontSize: "18px", color: "black", cursor: "pointer" }}
                 />
-                <h1 className="mt-1">List</h1>
+                <h1 className="mt-1 text-[15px]">List</h1>
               </div>
             </div>
           </div>
@@ -257,7 +255,7 @@ function NavBar() {
                 sx={{ color: "white", backgroundColor: "transparent" }}
               />
             </Avatar>
-            <div className="absolute bg-transparent -top-[4px] -left-[4px] a shadow-[0px_5px_0px_-2px_rgba(0,0,0,1)]   border-2  border-black h-12 w-12 rounded-full"></div>
+            <div className="absolute bg-transparent -top-[4px] -left-[4px]    border-2  border-gray-300 h-12 w-12 rounded-full"></div>
 
             <AnimatePresence>
               {showDropDown ? (
@@ -277,10 +275,12 @@ function NavBar() {
                       sx={{ color: "gray", backgroundColor: "transparent" }}
                     />
                     <div
-                     onClick={()=>{
-                      userState.userInfo?navigate("/profile"): dispatch(showActions.setShowLogin(true))
-                     }}
-                      to={userState.userInfo?"/profile":""}
+                      onClick={() => {
+                        userState.userInfo
+                          ? navigate("/profile")
+                          : dispatch(showActions.setShowLogin(true));
+                      }}
+                      to={userState.userInfo ? "/profile" : ""}
                       className="w-24 font-splinesans cursor-pointer bg-transparent  p-1"
                     >
                       Profile
@@ -312,18 +312,29 @@ function NavBar() {
                     </div>
                   )}
                   <div className="flex font-splinesans items-center justify-center cursor-pointer active:scale-90 rounded-md hover:bg-gray-200 lg:hidden    transition-all duration-150 ease-in-out">
-                <NotificationsNoneRoundedIcon
-                  sx={{ fontSize: "25px",backgroundColor:"transparent", color: "gray", cursor: "pointer" }}
-                />
-                <h1 className="mt-1 ml-[3px] bg-transparent">Notifications</h1>
-              </div>
-              <div className="flex font-splinesans items-center  cursor-pointer active:scale-90 rounded-md hover:bg-gray-200 lg:hidden   transition-all duration-150 ease-in-out">
-                <FavoriteBorderRoundedIcon
-                  sx={{ fontSize: "25px", backgroundColor:"transparent", color: "gray", cursor: "pointer" }}
-                />
-                <h1 className="mt-1 bg-transparent ml-[3px]">List</h1>
-              </div>
-
+                    <NotificationsNoneRoundedIcon
+                      sx={{
+                        fontSize: "25px",
+                        backgroundColor: "transparent",
+                        color: "gray",
+                        cursor: "pointer",
+                      }}
+                    />
+                    <h1 className="mt-1 ml-[3px] bg-transparent">
+                      Notifications
+                    </h1>
+                  </div>
+                  <div className="flex font-splinesans items-center  cursor-pointer active:scale-90 rounded-md hover:bg-gray-200 lg:hidden   transition-all duration-150 ease-in-out">
+                    <FavoriteBorderRoundedIcon
+                      sx={{
+                        fontSize: "25px",
+                        backgroundColor: "transparent",
+                        color: "gray",
+                        cursor: "pointer",
+                      }}
+                    />
+                    <h1 className="mt-1 bg-transparent ml-[3px]">List</h1>
+                  </div>
                 </motion.div>
               ) : (
                 ""

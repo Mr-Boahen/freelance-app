@@ -18,14 +18,15 @@ function GigCard({
   rating,
 }) {
   
+
   
   const shortDescription = description.slice(0, 80) + "...";
   const sellerState = useSelector((state) => state.seller);
   const userState = useSelector((state) => state.user);
   const navigate = useNavigate();
   const dispatch=useDispatch();
+  
   return (
-    //  userState.userInfo?navigate(`/profile/${userState.userInfo._id}`}: dispatch(showActions.setShowLogin(true)
     <div
       onClick={() =>userState.userInfo? navigate(`/profile/${userState.userInfo._id}`):dispatch(showActions.setShowLogin(true)) }
       className="bg-white  mt-12 hover:bg-gray-100/70 transition-all duration-100 ease-in-out"
@@ -45,15 +46,15 @@ function GigCard({
           <h1 className="font-splinesans cursor-pointer">{name}</h1>
         </div>
         <div className=" font-splinesans border overflow-hidden rounded p-1 cursor-pointer hover:bg-gray-100 transition-all duration-150 ease-in-out">
-          <h1 className="text-gray-500">{shortDescription}</h1>
+          <h1 className="text-gray-500 text-sm">{shortDescription}</h1>
         </div>
         <div className="flex items-center mt-3 absolute bottom-7">
           <StarRateRoundedIcon sx={{ color: "#2a2b2b", cursor: "pointer" }} />
           <h1 className="cursor-pointer font-splinesans mt-1">5</h1>
         </div>
-        <div className="cursor-pointer absolute bottom-0">
-          <h1 className="font-splinesans mt-2 ">
-            From <span>GH₵ {sellerState?.sellerInfo?.basePrice}</span>
+        <div className="cursor-pointer absolute bottom-2 text-green-500">
+          <h1 className="font-splinesans  text-sm ">
+            From <span className="font-[600]">GHC {startingPrice}</span>
           </h1>
         </div>
         
