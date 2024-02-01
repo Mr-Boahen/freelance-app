@@ -134,6 +134,19 @@ function ProfilePage() {
     },
   });
 
+  const { mutate: mutateSkill, isPending: deletingSkill } = useMutation({
+    mutationFn: ({ skill, arrayIndex }) => {
+      return deleteSkill({ skill, arrayIndex });
+    },
+    onSuccess: (data) => {
+      dispatch(userActions?.setUserInfo(data));
+      localStorage.setItem("account", JSON.stringify(data));
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
+
   const submitProfilePicture = async () => {
     const formData = new FormData();
     var profilePicture = document.getElementById("imageInput");
@@ -411,10 +424,9 @@ function ProfilePage() {
                     <h1 className="mt-1 bg-transparent text-green-500">
                       {skill}
                     </h1>
-                    <div className="bg-transparent"
-                      onClick={async() => {
-                        console.log(await deleteSkill(index));
-                      }}
+                    <div
+                      className="bg-transparent"
+                      onClick={() => mutateSkill({ skill, index })}
                     >
                       <CloseRoundedIcon
                         sx={{ fontSize: "15px", marginTop: "2px" }}

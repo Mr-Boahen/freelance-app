@@ -158,15 +158,17 @@ const payPartner = async ({ provider, tel }, _id) => {
   }
 };
 
-const deleteSkill=async(arrayIndex)=>{
+const deleteSkill=async({skill,arrayIndex})=>{
   try {
     const token = JSON.parse(localStorage.getItem("account")).token;
-    const message=await axios.post("http://localhost:8000/api/users/deleteSkill",{arrayIndex}, {
+    const updatedUser=await axios.post("http://localhost:8000/api/users/deleteSkill",{skill,arrayIndex}, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     })
-     return message
+    
+  
+     return updatedUser.data;
   } catch (error) {
     throw error;
     
