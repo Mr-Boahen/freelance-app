@@ -19,7 +19,7 @@ function HomeBody() {
       {isLoading ? (
         <>
           {" "}
-          <div className="w-[75%]   h-full mx-auto flex flex-wrap gap-5  items-center ">
+          <div className="w-[75%] m-5  h-full mx-auto flex flex-wrap gap-5  items-center ">
             <div>
               <Skeleton
                 variant="rectangular"

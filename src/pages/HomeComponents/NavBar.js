@@ -104,7 +104,7 @@ function NavBar() {
     <div className="relative  z-50  ">
       <div className=" h-fit md:h-[84px]   border-b-2 ">
        
-        <div className=" m-5 pr-2   h-full w-[60%]   mx-auto  flex items-center justify-center gap-20 md:gap-28 max-sm:bg-red-500 sm:bg-green-500 md:bg-blue-400 lg:bg-purple-500 xl:bg-amber-700  2xl:bg-yellow-500">
+        <div className=" m-5 pr-2   h-full w-[60%]   mx-auto  flex items-center justify-center gap-20 ">
           <NavLink to="/home">
             <div>
               <h1 className=" text-3xl px-3 font-splinesans text-green-600 active:scale-x-[0.98]  border-2 border-black p-1 rounded-md shadow-[-8px_6px_0px_-2px_rgba(0,0,0,1)]">

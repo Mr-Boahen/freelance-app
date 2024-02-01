@@ -1,6 +1,6 @@
 import { Avatar, Skeleton } from "@mui/material";
 import StarRateRoundedIcon from "@mui/icons-material/StarRateRounded";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { getSeller, payPartner } from "../services/users";
 import { useDispatch, useSelector } from "react-redux";
@@ -66,50 +66,49 @@ function SellerProfile() {
   useEffect(() => {
     mutateSeller(_id);
   }, []);
+  //Every feature of the PayScrolling
+  const payScrollRef = useRef();
+
+  const preventWheel = () => {
+    setTimeout(() => {
+      payScrollRef.current.classList.remove("overflow-y-scroll");
+      payScrollRef.current.classList.add("overflow-y-hidden");
+    }, 400);
+  };
+
+  const allowWheel = () => {
+    payScrollRef.current.classList.remove("overflow-y-hidden");
+    payScrollRef.current.classList.add("overflow-y-scroll");
+  };
+
+  const scrollOnPay = () => {
+    payScrollRef.current.scroll({
+      top: 500,
+      left: 0,
+      behavior: "smooth",
+    });
+  };
 
   return (
-    <div className="relative  flex flex-col items-center xl:items-start   xl:flex-row w-[65%] px-10 pb-10 border-none xl:border-2 rounded-lg mx-auto gap-5 xl:gap-10">
+    <div className="relative  flex flex-col items-center xl:items-start   xl:flex-row w-[58%] px-10 pb-10 border-none xl:border-2 rounded-lg mx-auto gap-5 xl:gap-10">
       {pendingSeller ? (
         <div>
-          <div className="flex gap-2 mt-10">
+          <div className="mt-[110px] flex flex-col gap-2">
             <Skeleton
-              variant="circular"
-              height={80}
-              width={80}
+              variant="rectangular"
+              height={120}
+              width={400}
               animation="wave"
-              className=""
+              className="rounded-lg"
             />
             <Skeleton
               variant="rectangular"
-              height={80}
-              width={220}
+              height={500}
+              width={400}
               animation="wave"
               className="rounded-lg"
             />
           </div>
-          <div className="flex gap-2 mt-5">
-            <Skeleton
-              variant="rectangular"
-              height={80}
-              width={150}
-              animation="wave"
-              className="rounded-lg"
-            />
-            <Skeleton
-              variant="rectangular"
-              height={80}
-              width={150}
-              animation="wave"
-              className="rounded-lg"
-            />
-          </div>
-          <Skeleton
-            variant="rectangular"
-            height={200}
-            width={310}
-            animation="wave"
-            className="rounded-lg mt-5"
-          />
         </div>
       ) : (
         <div className="  ">
@@ -142,11 +141,15 @@ function SellerProfile() {
             <div className="flex gap-[30%] border-b py-5">
               <div>
                 <h1 className="font-signika xl:text-xl">From</h1>
-                <h1 className="xl:text-lg font-[500] text-gray-500">Uzbekistan</h1>
+                <h1 className="xl:text-lg font-[500] text-gray-500">
+                  Uzbekistan
+                </h1>
               </div>
               <div>
                 <h1 className="font-signika xl:text-xl">Member Since</h1>
-                <h1 className="xl:text-lg font-[500] text-gray-500">Feb 2014</h1>
+                <h1 className="xl:text-lg font-[500] text-gray-500">
+                  Feb 2014
+                </h1>
               </div>
             </div>
 
@@ -154,135 +157,128 @@ function SellerProfile() {
               {sellerState?.sellerInfo?.description}
             </div>
           </div>
-
-          
         </div>
       )}
       {pendingSeller ? (
-        <div className="mt-[150px] ">
+        <div className="mt-[115px] flex flex-col gap-8 ">
           <Skeleton
             variant="rectangular"
-            height={100}
-            width={150}
+            height={400}
+            width={450}
             animation="wave"
-            className="rounded-md"
+            className="rounded-lg"
           />
+
           <Skeleton
             variant="rectangular"
-            height={200}
-            width={300}
+            height={160}
+            width={450}
             animation="wave"
-            className="mt-2 rounded-md"
-          />
-          <Skeleton
-            variant="rectangular"
-            height={50}
-            width={200}
-            animation="wave"
-            className="mt-2 ml-24 rounded-md"
-          />
-          <Skeleton
-            variant="rectangular"
-            height={50}
-            width={292}
-            animation="wave"
-            className="mt-2 ml-1 rounded-md"
+            className="rounded-lg"
           />
         </div>
       ) : (
-      <div className="bg-transparent flex flex-col">
-         <div className=" min-w-[400px] mx-auto xl:w-[460px]   border-2 rounded-lg px-5 py-2 h-fit xl:mt-[110px] shadow-md  ">
-          <h1 className="text-[100px] font-bold -mt-5 bg-transparent text-green-400">
-            {" "}
-            <span className="text-3xl font-jetbrains"> GHC </span>
-            <span className=" bg-transparent">{sellerState?.sellerInfo?.basePrice}</span>
-          </h1>
-          <div>
-            <h1 className="font-splinesans font-[500] text-md">
-              {sellerState?.sellerInfo?.gigDescription}
-            </h1>
-          </div>
-
-          <div className="flex justify-start gap-3 mt-1">
-            <div className="flex items-center">
-             
-              <h1 className="font-semibold font-splinesans text-sm text-gray-500">
-                {sellerState?.sellerInfo?.deliveryTime}
-                {sellerState?.sellerInfo?.deliveryTime == 1
-                  ? " Day "
-                  : " Days "}
-                Delivery
-              </h1>
-            </div>
-            <div className="flex items-center">
-             
-              <h1 className="font-semibold font-splinesans text-sm text-gray-500">
-                {sellerState?.sellerInfo?.revisions}{" "}
-                {sellerState?.sellerInfo?.revisions == "1"
-                  ? " Revision "
-                  : " Revisions "}
-              </h1>
-            </div>
-          </div>
-          <form
-            onSubmit={handleSubmit(submitPayment)}
-            className=" bg-black rounded-[4px] my-5"
+        <div className="bg-transparent flex flex-col ">
+          <div
+            ref={payScrollRef}
+            className="pay-scroll overflow-y-hidden scrollbar-hide  min-w-[400px] mx-auto xl:w-[460px]   border-2 rounded-lg px-5 py-2 h-[410px] xl:mt-[110px] shadow-md  "
           >
-            <div
-              onClick={() => setShowPayment(!showPayment)}
-              className="flex items-center justify-center  gap-2 group rounded-[4px] bg-black h-10  text-white w-[100%] mx-auto"
-            >
-              <h1 className="text-xl bg-transparent group-active:mr-2 font-signika transition-all duration-100 ease-in-out">
-                Hire
+            <div className="bg-transparent ">
+              <h1 className="text-[100px] font-bold -mt-5 bg-transparent text-green-400">
+                {" "}
+                <span className="text-3xl font-jetbrains"> GHC </span>
+                <span className=" bg-transparent">
+                  {sellerState?.sellerInfo?.basePrice}
+                </span>
               </h1>
-              <ArrowDownwardRoundedIcon sx={{ color: "#05ed5e" }} />
-            </div>
-            <AnimatePresence>
-              {showPayment && (
-                <motion.div
-                  initial={{ scale: 0.9 }}
-                  animate={{ scale: 1 }}
-                  exit={{ scale: 0.9 }}
-                  className="bg-black pl-8 py-3 rounded-[4px] h-fit -mt-5 "
+              <div>
+                <h1 className="font-splinesans font-[500] text-md">
+                  {sellerState?.sellerInfo?.gigDescription}
+                </h1>
+              </div>
+
+              <div className="flex justify-start gap-3 mt-1">
+                <div className="flex items-center">
+                  <h1 className="font-semibold font-splinesans text-sm text-gray-500">
+                    {sellerState?.sellerInfo?.deliveryTime}
+                    {sellerState?.sellerInfo?.deliveryTime == 1
+                      ? " Day "
+                      : " Days "}
+                    Delivery
+                  </h1>
+                </div>
+                <div className="flex items-center">
+                  <h1 className="font-semibold font-splinesans text-sm text-gray-500">
+                    {sellerState?.sellerInfo?.revisions}{" "}
+                    {sellerState?.sellerInfo?.revisions == "1"
+                      ? " Revision "
+                      : " Revisions "}
+                  </h1>
+                </div>
+              </div>
+              <div
+                onSubmit={handleSubmit(submitPayment)}
+                className=" bg-black rounded-[4px] my-5"
+              >
+                <div
+                  onClick={() => scrollOnPay()}
+                  onMouseEnter={allowWheel}
+                  onMouseLeave={preventWheel}
+                  className="flex cursor-pointer items-center justify-center  gap-2 group rounded-[4px] bg-green-400 h-10  text-white w-[100%] mx-auto"
                 >
-                  <label className="text-green-500 block font-signika text-lg">
-                    Select Provider
-                  </label>
+                  <h1 className="text-xl  bg-transparent  font-signika transition-all duration-100 ease-in-out">
+                    Hire
+                  </h1>
+                  <div className="bg-transparent group-active:translate-y-2 transition-all duration-100 ease-in-out">
+                  <ArrowDownwardRoundedIcon sx={{ color: "white" }} />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="h-[400px] w-[415px] mt-28 ">
+              <div className=" flex flex-col gap-4  pl-8 py-3 rounded-[4px] h-fit mt-52 ">
+                <div className="relative">
                   <select
                     {...register("provider")}
-                    className="text-white font-splinesans leading bg-black w-[90%] border  h-8 rounded-[4px] outline-none focus:border-green-500 "
+                    className="text-black font-splinesans w-[90%] px-5 border  h-14 rounded-[4px] outline-none focus:border-green-500 "
                   >
                     <option value="mtn">MTN</option>
                     <option value="tgo">AirtelTigo</option>
                     <option value="vod">Vodafone</option>
                   </select>
+                  <div className="absolute -top-2 left-3">
+                    <h1 className="text-sm font-splinesans text-gray-400 ">
+                      Service Provider
+                    </h1>
+                  </div>
+                </div>
 
-                  <label className="text-green-500 block font-signika text-lg">
-                    Momo number
-                  </label>
+                <div className="relative">
                   <input
                     {...register("tel")}
                     type="tel"
-                    className="h-8 p-1 font-splinesans  outline-none rounded-[3px] bg-black text-white border focus:border-green-500"
+                    placeholder="Mobile money number"
+                    className="h-14 w-[90%] p-1 px-5 font-splinesans  outline-none rounded-[3px]  text-black border focus:border-green-500"
                   />
-
-                  <button className=" group flex items-center justify-center gap-2 bg-[#07b042] h-10 rounded-sm w-[60%] mt-1">
-                    <h1 className="text-white bg-transparent text-lg font-signika group-active:mr-2 transition-all duration-100 ease-in-out">
-                      Pay
+                  <div className="absolute -top-2 left-3">
+                    <h1 className="text-sm font-splinesans text-gray-400 ">
+                      Momo number
                     </h1>
-                    <AccountBalanceWalletRoundedIcon sx={{ color: "white" }} />
-                  </button>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </form>
-          
-        </div>
-        <div className="h-[180px]   my-5 border-2 rounded-lg ">
+                  </div>
+                </div>
+                <button className=" group flex items-center justify-center gap-2  bg-green-400 h-10 rounded-sm w-[90%] mt-1">
+                  <h1 className="text-white bg-transparent text-lg font-signika group-active:mr-2 transition-all duration-100 ease-in-out">
+                    Pay
+                  </h1>
+                  <AccountBalanceWalletRoundedIcon sx={{ color: "white" }} />
+                </button>
+              </div>
+            </div>
+          </div>
+          <div className="h-[180px]   my-5 border-2 rounded-lg ">
             <h1 className="text-4xl bg-transparent text-white">Portfolio</h1>
           </div>
-      </div>
-        
+        </div>
       )}
     </div>
   );

@@ -16,7 +16,7 @@ function SearchServicesMenu() {
         <div
           className={` lg:w-[50%] xl:w-[60%] lg:flex   py-2 mx-auto flex  items-center justify-center lg:justify-start flex-wrap gap-3 ${
             showMore ? "" : "h-16"
-          }  overflow-y-hidden sm:gap-6 lg:gap-10 text-lg text-black font-signika  `}
+          }  overflow-y-hidden sm:gap-6 lg:gap-[54px] text-lg text-black font-signika  `}
         >
           <div className=" grid place-items-center font-splinesans text-[15px]  h-[50px] w-fit   flex-shrink-0 rounded-md active:scale-95    transition-all duration-75 ease-in-out">
             <p
